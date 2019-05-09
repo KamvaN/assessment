@@ -56,9 +56,20 @@ namespace _2017034360
             return iNumLetter;
         }
 
-        static int GetNumberOfWords()
+        static int GetNumWords(string sStr)
         {
-
-        }
+            int iNumWords = 0;
+            bool isSpaceAvailable = true;
+            int iIndex;
+            while(isSpaceAvailable)
+            {
+                iIndex = sStr.IndexOf(" ");
+                isSpaceAvailable = (iIndex == -1)? false: true;
+                if(isSpaceAvailable)
+                sStr = sStr.Substring(iIndex + 2);
+                iNumWords++;
+            }
+            return iNumWords;
+      }
     }
 }
