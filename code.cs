@@ -41,12 +41,13 @@ namespace _2017034360
 
             int iTotalLetter = GetNumLetters(sUserStr);
             int iNumberOfWords = GetNumWords(sUserStr);
+            int iNumberOfSentences = GetNumberSentences(sUserStr);
 
             Console.WriteLine("\n\nSTATISTICS");
             Console.WriteLine("==========");
             Console.WriteLine("Number of letters: " + iTotalLetter.ToString());
             Console.WriteLine("Number of words: " + iNumberOfWords.ToString());
-            Console.WriteLine("Number of Sentences: " + GetNumberSentences(sUserStr));
+            Console.WriteLine("Number of Sentences: " + iNumberOfSentences.ToString());
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
@@ -89,7 +90,7 @@ namespace _2017034360
                 Array.Sort(iEndOfSentenceMarkIndexes);
 
                 if (iEndOfSentenceMarkIndexes[0] == iEndOfSentenceMarkIndexes[1] &&
-                    iEndOfSentenceMarkIndexes[1] == iEndOfSentenceMarkIndexes[2])
+                    iEndOfSentenceMarkIndexes[2] == sStr.Length - 1)
                     break;
 
                 foreach (int iIndex in iEndOfSentenceMarkIndexes)
@@ -105,7 +106,7 @@ namespace _2017034360
                     break;
                 }
             }
-            return iNumSentences;
+            return ++iNumSentences; // Increment for the last sentence
         }
     }
 }
