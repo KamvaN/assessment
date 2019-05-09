@@ -1,4 +1,4 @@
-*
+/*
  *Name           : Kamva Neli
  *Student number : 217034360 
  *Task           : Practical assignment 3
