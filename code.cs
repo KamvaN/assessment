@@ -40,11 +40,15 @@ namespace _2017034360
             }
 
             int iTotalLetter = GetNumLetters(sUserStr);
-            int iNumberOfWords;
+            int iNumberOfWords = GetNumWords(sUserStr);
 
-            Console.WriteLine("STATISTICS");
+            Console.WriteLine("\n\nSTATISTICS");
             Console.WriteLine("==========");
-            Console.WriteLine("Number of leeter: " + iTotalLetter);
+            Console.WriteLine("Number of letters: " + iTotalLetter.ToString());
+            Console.WriteLine("Number of words: " + iNumberOfWords.ToString());
+            Console.WriteLine("Number of Sentences: " + GetNumberSentences(sUserStr));
+
+            Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
 
@@ -52,7 +56,7 @@ namespace _2017034360
         {
             int iNumLetter = 0;
             foreach (char cCharacter in _sUserStr)
-                iNumLetter += (sAlphabets.Contains(cCharacter.ToString())) ? 1: 0;
+                iNumLetter += (sAlphabets.Contains(cCharacter.ToString())) ? 1 : 0;
             return iNumLetter;
         }
 
@@ -61,15 +65,47 @@ namespace _2017034360
             int iNumWords = 0;
             bool isSpaceAvailable = true;
             int iIndex;
-            while(isSpaceAvailable)
+            while (isSpaceAvailable)
             {
                 iIndex = sStr.IndexOf(" ");
-                isSpaceAvailable = (iIndex == -1)? false: true;
-                if(isSpaceAvailable)
-                sStr = sStr.Substring(iIndex + 2);
+                isSpaceAvailable = (iIndex == -1) ? false : true;
+                if (isSpaceAvailable)
+                    sStr = sStr.Substring(iIndex + 2);
                 iNumWords++;
             }
             return iNumWords;
-      }
+        }
+
+        static int GetNumberSentences(string sStr)
+        {
+            int iNumSentences = 0;
+            int[] iEndOfSentenceMarkIndexes = new int[3];
+            Array.Sort(iEndOfSentenceMarkIndexes);
+            while(true)
+            {
+                iEndOfSentenceMarkIndexes[0] = (sStr.IndexOf(".") == -1) ? 0 : sStr.IndexOf(".");
+                iEndOfSentenceMarkIndexes[1] = (sStr.IndexOf("?") == -1) ? 0 : sStr.IndexOf("?");
+                iEndOfSentenceMarkIndexes[2] = (sStr.IndexOf("!") == -1) ? 0 : sStr.IndexOf("!");
+                Array.Sort(iEndOfSentenceMarkIndexes);
+
+                if (iEndOfSentenceMarkIndexes[0] == iEndOfSentenceMarkIndexes[1] &&
+                    iEndOfSentenceMarkIndexes[1] == iEndOfSentenceMarkIndexes[2])
+                    break;
+
+                foreach (int iIndex in iEndOfSentenceMarkIndexes)
+                {
+                    if (iIndex == 0)
+                        continue;
+
+                    iNumSentences++;
+
+                    if (iIndex == (sStr.Length - 1))
+                        break;
+                    sStr = sStr.Substring(iIndex + 2);
+                    break;
+                }
+            }
+            return iNumSentences;
+        }
     }
 }
